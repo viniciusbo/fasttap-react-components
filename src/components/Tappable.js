@@ -33,15 +33,15 @@ export default class Tappable extends React.Component {
   }
 
   handleTap() {
-    this.setState({ isTapped: true });
-
     if (this.props.onTap)
       this.props.onTap(this.props.score);
+
+    this.setState({ isTapped: true });
   }
 }
 
 Tappable.propTypes = {
   score:React.PropTypes.number.isRequired,
   size: React.PropTypes.number.isRequired,
-  onTap: React.PropTypes.func
+  onTap: React.PropTypes.func.isRequired
 };

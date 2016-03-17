@@ -1,32 +1,17 @@
 import expect from 'expect'
 import React from 'react'
-import { createRenderer } from 'react-addons-test-utils'
-import { findWithType, getMountedInstance } from 'react-shallow-testutils'
+import { renderIntoDocument, findRenderedComponentWithType, createRenderer } from 'react-addons-test-utils'
+import { getMountedInstance } from 'react-shallow-testutils'
 
 import Board from 'src/components/Board'
-import BoardTimer from 'src/components/BoardTimer'
 
 describe('Board component', () => {
-  it('show board timer before match start', () => {
-    let renderer = createRenderer();
-    renderer.render(<Board score={0} freezetime={0} onNewScore={() => {}} onStart={() => {}} />);
-    let boardTimer = findWithType(renderer.getRenderOutput(), BoardTimer);
-    expect(boardTimer).toExist();
-  });
-
-  it('start after freezetime', function(done) {
-    let renderer = createRenderer();
+  it('callback on new score', function() {
     let spy = expect.createSpy();
-    renderer.render(<Board score={0} freezetime={2} onNewScore={() => {}} onStart={spy} />);
-
-    this.timeout(5000);
-    setTimeout(() => {
-      let component = getMountedInstance(renderer);
-      let boardTimer = findWithType(renderer.getRenderOutput(), BoardTimer);
-      expect(component.state.hasStarted).toBe(true);
-      expect(boardTimer).toNotExist();
-      expect(spy).toHaveBeenCalled();
-      done();
-    }, 3000);
+    let shallowRenderer = createRenderer();
+    shallowRenderer.render(<Board score={1} timeleft={1} onNewScore={spy} />);
+    let component = getMountedInstance(shallowRenderer);
+    component.onNewScore();
+    expect(spy).toHaveBeenCalled();
   });
 });
