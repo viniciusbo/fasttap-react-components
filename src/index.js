@@ -17,7 +17,7 @@ let onMatchEnd = (didWin) => {
   if (didWin === true)
     return console.log('YOU WIN!');
 
-  console.log('YOU LOSE...');
+  console.log('YOU LOSE....');
 };
 
 render(<Match player={player} opponent={opponent} onMatchEnd={onMatchEnd} />, document.querySelector('#app'))
