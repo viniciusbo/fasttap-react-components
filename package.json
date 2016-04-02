@@ -16,15 +16,16 @@
     "test": "nwb test",
     "test:watch": "nwb test --server"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": "0.14.x"
   },
   "devDependencies": {
     "nwb": "0.8.x",
     "react": "0.14.x",
-    "react-dom": "0.14.x"
+    "react-addons-test-utils": "^0.14.8",
+    "react-dom": "0.14.x",
+    "react-shallow-testutils": "^1.0.0"
   },
   "author": "Vinícius Borriello <viniciusbo@gmail.com>",
   "homepage": "vinicius.borriello.com.br",
