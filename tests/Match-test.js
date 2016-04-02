@@ -1,7 +1,7 @@
 import expect from 'expect'
 import React from 'react'
 import { createRenderer } from 'react-addons-test-utils'
-import { findWithType, findAllWithType, getMountedInstance } from 'react-shallow-testutils'
+import { findWithType, getMountedInstance } from 'react-shallow-testutils'
 
 import Match from 'src/components/Match'
 import Board from 'src/components/Board'
@@ -9,54 +9,53 @@ import Timer from 'src/components/Timer'
 import Score from 'src/components/Score'
 
 describe('Match component', () => {
-  it('has a board', () => {
-    let renderer = createRenderer();
-    renderer.render(<Match player={{}} opponent={{}} duration={60} freezetime={0} onEnd={() => {}} />);
-    let tree = renderer.getRenderOutput();
-    let found = findAllWithType(tree, Board);
-    expect(found.length).toBe(1);
+  before(function() {
+    this.onStart = expect.createSpy();
+    this.onNewScore = expect.createSpy();
+    this.onEnd = expect.createSpy();
+    this.fixture = <Match
+      player={{}}
+      opponent={{}}
+      duration={60}
+      freezetime={0}
+      onStart={this.onStart}
+      onNewScore={this.onNewScore}
+      onEnd={this.onEnd} />;
+    this.renderer = createRenderer();
+    this.renderer.render(this.fixture);
+    this.component = getMountedInstance(this.renderer);
   });
 
-  it('show timer before freezetime timeout', () => {
-    let renderer = createRenderer();
-    renderer.render(<Match player={{}} opponent={{}} duration={60} freezetime={5} onEnd={() => {}} />);
-    let tree = renderer.getRenderOutput();
-    let found = findAllWithType(tree, Timer);
-    expect(found.length).toBe(1);
+  it('has a board', function() {
+    let tree = this.renderer.getRenderOutput();
+    let board = findWithType(tree, Board);
+    expect(board).toExist();
   });
 
-  it('callback on start', () => {
-    let spy = expect.createSpy();
-    let renderer = createRenderer();
-    renderer.render(<Match player={{}} opponent={{}} duration={60} freezetime={0} onStart={spy} onEnd={() => {}} />);
-    let component = getMountedInstance(renderer);
-    component.onStart();
-    expect(spy).toHaveBeenCalled();
+  it('show timer before freezetime timeout', function() {
+    let tree = this.renderer.getRenderOutput();
+    let timer = findWithType(tree, Timer);
+    expect(timer).toExist();
   });
 
-  it('callback on new score', () => {
-    let spy = expect.createSpy();
-    let renderer = createRenderer();
-    renderer.render(<Match player={{}} opponent={{}} duration={60} freezetime={0} onNewScore={spy} onEnd={() => {}} />);
-    let component = getMountedInstance(renderer);
-    component.onNewScore();
-    expect(spy).toHaveBeenCalled();
+  it('callback on start', function() {
+    this.component.onStart();
+    expect(this.onStart).toHaveBeenCalled();
   });
 
-  it('callback on match end', () => {
-    let spy = expect.createSpy();
-    let renderer = createRenderer();
-    renderer.render(<Match player={{}} opponent={{}} duration={60} freezetime={0} onEnd={spy} />);
-    let component = getMountedInstance(renderer);
-    component.onEnd();
-    expect(spy).toHaveBeenCalled();
+  it('callback on new score', function() {
+    this.component.onNewScore();
+    expect(this.onNewScore).toHaveBeenCalled();
   });
 
-  it('show score after match end', () => {
-    let renderer = createRenderer();
-    renderer.render(<Match player={{}} opponent={{}} duration={0} freezetime={0} onEnd={() => {}} />);
-    let tree = renderer.getRenderOutput();
-    let found = findAllWithType(tree, Score);
-    expect(found.length).toBe(1);
+  it('callback on match end', function() {
+    this.component.onEnd();
+    expect(this.onEnd).toHaveBeenCalled();
+  });
+
+  it('show score after match end', function() {
+    let tree = this.renderer.getRenderOutput();
+    let score = findWithType(tree, Score);
+    expect(score).toExist();
   });
 });
