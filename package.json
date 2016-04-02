@@ -21,6 +21,7 @@
     "react": "0.14.x"
   },
   "devDependencies": {
+    "classnames": "^2.2.3",
     "nwb": "0.8.x",
     "react": "0.14.x",
     "react-addons-test-utils": "^0.14.8",
