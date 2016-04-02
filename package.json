@@ -1,8 +1,14 @@
 {
-  "name": "fasttap-nwb",
+  "name": "FastTap Game React Components",
   "version": "1.0.0",
-  "description": "Describe fasttap-nwb here",
-  "private": true,
+  "description": "Fast Tap Game React components",
+  "main": "lib/index.js",
+  "files": [
+    "css",
+    "es6",
+    "lib",
+    "umd"
+  ],
   "scripts": {
     "build": "nwb build",
     "clean": "nwb clean",
@@ -11,18 +17,20 @@
     "test:watch": "nwb test --server"
   },
   "dependencies": {
-    "classnames": "^2.2.3",
-    "expect": "^1.15.2",
-    "expect-jsx": "^2.4.0",
-    "react": "0.14.x",
-    "react-addons-test-utils": "^0.14.7",
-    "react-dom": "0.14.x",
-    "react-shallow-testutils": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": "0.14.x"
   },
   "devDependencies": {
-    "nwb": "0.8.x"
+    "nwb": "0.8.x",
+    "react": "0.14.x",
+    "react-dom": "0.14.x"
   },
-  "author": "",
+  "author": "Vinícius Borriello <viniciusbo@gmail.com>",
+  "homepage": "vinicius.borriello.com.br",
   "license": "MIT",
-  "repository": ""
+  "repository": "",
+  "keywords": [
+    "react-component"
+  ]
 }
