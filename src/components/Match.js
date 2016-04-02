@@ -70,11 +70,12 @@ export default class Match extends React.Component {
   }
 
   checkMatchEnd() {
-    if (this.state.timeleft <= 0) {
-      this.setState({
-        hasEnded: true
-      });
-    }
+    if (this.state.timeleft > 0)
+      return;
+
+    this.setState({
+      hasEnded: true
+    });
   }
 
   onEnd() {
