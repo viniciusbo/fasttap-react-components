@@ -9,7 +9,7 @@ import Timer from 'src/components/Timer'
 import Score from 'src/components/Score'
 
 describe('Match component', () => {
-  before(function() {
+  beforeEach(function() {
     this.onStart = expect.createSpy();
     this.onNewScore = expect.createSpy();
     this.onEnd = expect.createSpy();
@@ -17,7 +17,7 @@ describe('Match component', () => {
       player={{}}
       opponent={{}}
       duration={60}
-      freezetime={0}
+      freezetime={5}
       onStart={this.onStart}
       onNewScore={this.onNewScore}
       onEnd={this.onEnd} />;
@@ -26,7 +26,8 @@ describe('Match component', () => {
     this.component = getMountedInstance(this.renderer);
   });
 
-  it('has a board', function() {
+  it('show board on match start', function() {
+    this.component.onStart();
     let tree = this.renderer.getRenderOutput();
     let board = findWithType(tree, Board);
     expect(board).toExist();
@@ -54,6 +55,7 @@ describe('Match component', () => {
   });
 
   it('show score after match end', function() {
+    this.component.onEnd();
     let tree = this.renderer.getRenderOutput();
     let score = findWithType(tree, Score);
     expect(score).toExist();
