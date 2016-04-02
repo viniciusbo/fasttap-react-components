@@ -1,6 +1,6 @@
 {
-  "name": "FastTap Game React Components",
-  "version": "1.0.0",
+  "name": "fasttap-react-components",
+  "version": "0.1.0",
   "description": "Fast Tap Game React components",
   "main": "lib/index.js",
   "files": [
